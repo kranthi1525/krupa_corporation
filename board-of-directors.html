@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Founder's Message — Krupa Corporation</title>
+  <link rel="icon" type="image/x-icon" href="fav.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #0099FF;
+      --blue-dark: #006DD6;
+      --blue-deep: #003A8C;
+      --gold: #AF8C3B;
+      --gold-light: #D4AE5A;
+      --text-dark: #1A1A2E;
+      --text-mid: #4A4A6A;
+      --text-light: #8888A0;
+      --bg-cream: #FDFAF5;
+      --bg-white: #FFFFFF;
+      --border: rgba(0,0,0,0.08);
+      --radius: 14px;
+      --radius-lg: 22px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-white);
+      overflow-x: hidden;
+    }
+
+    /* ── UPPER NAV ── */
+    .upper-nav {
+      background: var(--gold);
+      transition: transform 0.35s ease;
+    }
+    .upper-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 9px 28px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 28px;
+    }
+    .upper-nav a {
+      color: rgba(255,255,255,0.92);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+    .upper-nav a:hover { color: #fff; }
+
+    /* ── MAIN NAV ── */
+    .main-nav {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.35s ease;
+      position: relative;
+      z-index: 100;
+    }
+    .main-nav.sticky {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .main-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { width: 160px; height: auto; }
+    .nav-links { display: flex; list-style: none; gap: 36px; align-items: center; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-mid);
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 100%;
+      height: 2px;
+      background: var(--blue);
+      transition: right 0.25s ease;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { right: 0; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+
+    /* Dropdown */
+    .dropdown { position: relative; }
+    .dropdown-panel {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      min-width: 260px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+      z-index: 200;
+    }
+    .dropdown:hover .dropdown-panel { display: block; }
+    .dropdown-panel h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .dropdown-panel a {
+      display: block;
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+    }
+    .dropdown-panel a:last-child { border-bottom: none; }
+    .dropdown-panel a:hover { color: var(--blue); }
+    .dropdown-panel a::after { display: none; }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--blue-deep);
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      overflow-y: auto;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu-inner { padding: 28px 28px 40px; }
+    .mobile-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      float: right;
+      margin-bottom: 48px;
+    }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .mobile-menu a {
+      display: block;
+      padding: 16px 0;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      position: relative;
+      height: 52vh;
+      min-height: 360px;
+      background: linear-gradient(135deg, var(--blue-deep) 0%, #0a1a40 100%);
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 64px;
+      overflow: hidden;
+    }
+    /* subtle pattern overlay */
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 70% 50%, rgba(0,153,255,0.18) 0%, transparent 60%),
+                        radial-gradient(circle at 20% 80%, rgba(212,174,90,0.12) 0%, transparent 50%);
+    }
+    .page-hero-content {
+      position: relative;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .page-hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border-radius: 50px;
+      padding: 6px 16px;
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .page-hero-eyebrow span { width: 6px; height: 6px; background: var(--gold-light); border-radius: 50%; }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.12;
+      max-width: 600px;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      background: var(--bg-cream);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 40px;
+    }
+    .breadcrumb-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    .breadcrumb-inner a { color: var(--blue); text-decoration: none; }
+    .breadcrumb-inner a:hover { text-decoration: underline; }
+    .breadcrumb-inner i { font-size: 10px; }
+
+    /* ── SECTION SHARED ── */
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 500;
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+    .section-title em { font-style: italic; color: var(--blue); }
+
+    /* ── FOUNDER FEATURE ── */
+    .founder-section {
+      padding: 100px 40px;
+      background: var(--bg-white);
+    }
+    .founder-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* Portrait card */
+    .founder-portrait {
+      position: relative;
+    }
+    .founder-img-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      position: relative;
+    }
+    .founder-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    /* gradient overlay at bottom of portrait */
+    .founder-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,15,40,0.7) 0%, transparent 50%);
+    }
+    .founder-name-overlay {
+      position: absolute;
+      bottom: 28px;
+      left: 28px;
+      z-index: 2;
+      color: #fff;
+    }
+    .founder-name-overlay h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+    .founder-name-overlay p {
+      font-size: 13px;
+      color: var(--gold-light);
+      margin-top: 6px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    /* Founder info panel */
+    .founder-info {
+      padding-top: 8px;
+    }
+    .founder-info .section-title {
+      margin-bottom: 28px;
+    }
+    .founder-quote {
+      border-left: 3px solid var(--gold);
+      padding-left: 24px;
+      margin-bottom: 32px;
+    }
+    .founder-quote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--text-dark);
+      line-height: 1.65;
+    }
+    .founder-body p {
+      font-size: 15.5px;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    .founder-sig {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 36px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .founder-sig-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+    }
+    .founder-sig-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .founder-sig-text strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .founder-sig-text span {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    /* ── TEAM SECTION ── */
+    .team-section {
+      padding: 100px 40px;
+      background: var(--bg-cream);
+    }
+    .team-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .team-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .team-header p.sub {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      max-width: 480px;
+      margin: 16px auto 0;
+      line-height: 1.7;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .team-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.09);
+    }
+    .team-card-img {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #e8eef5;
+      position: relative;
+    }
+    .team-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .team-card:hover .team-card-img img { transform: scale(1.05); }
+    /* placeholder when no image */
+    .team-card-img .placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e8eef5, #d0dce8);
+      font-size: 3rem;
+      color: rgba(0,100,200,0.2);
+    }
+    .team-card-details {
+      padding: 20px 22px 24px;
+    }
+    .team-card-details h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .team-card-details p {
+      font-size: 13px;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+    .team-card-details .role-tag {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: rgba(0,153,255,0.08);
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    /* ── VALUES STRIP (dark) ── */
+    .values-strip {
+      background: var(--text-dark);
+      padding: 80px 40px;
+    }
+    .values-strip-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .values-strip .section-eyebrow { color: var(--gold-light); }
+    .values-strip .section-title { color: #fff; }
+    .values-strip-text p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.75;
+      margin-top: 16px;
+    }
+    .values-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .values-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 28px 24px;
+      transition: background 0.3s;
+    }
+    .values-item:hover { background: rgba(0,153,255,0.07); }
+    .values-item i {
+      font-size: 20px;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .values-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .values-item p {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--blue);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .cta-band p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .cta-band-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: #fff;
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-white:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); }
+    .btn-white-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-white-outline:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: #0A0F1E; color: rgba(255,255,255,0.7); }
+    .footer-top {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 64px 40px 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
+      gap: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand img { width: 140px; filter: brightness(0) invert(1); opacity: 0.85; margin-bottom: 18px; }
+    .footer-brand p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.45); max-width: 240px; margin-bottom: 20px; }
+    .footer-socials { display: flex; gap: 14px; }
+    .footer-socials a {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+      color: rgba(255,255,255,0.6);
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .footer-socials a:hover { background: var(--blue); color: #fff; }
+    .footer-col h4 {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-newsletter p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 14px; line-height: 1.6; }
+    .footer-email-form {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .footer-email-form input {
+      flex: 1;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    .footer-email-form input::placeholder { color: rgba(255,255,255,0.3); }
+    .footer-email-form button {
+      padding: 12px 18px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .footer-email-form button:hover { background: var(--blue-dark); }
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; margin-left: 20px; }
+    .footer-bottom a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal-left.active { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal-right.active { opacity: 1; transform: translateX(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .nav-links, .upper-nav { display: none; }
+      .menu-toggle { display: block; }
+      .mobile-menu { display: block; }
+      .founder-inner { grid-template-columns: 1fr; gap: 48px; }
+      .founder-portrait { max-width: 420px; }
+      .values-strip-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .founder-section, .team-section, .values-strip { padding: 72px 24px; }
+      .page-hero-content { padding: 0 24px; }
+      .breadcrumb { padding: 14px 24px; }
+      .founder-portrait { max-width: 100%; }
+      .values-list { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; padding: 48px 24px 32px; }
+      .footer-bottom { padding: 20px 24px; flex-direction: column; text-align: center; }
+      .footer-bottom a { margin: 0 8px; }
+      .cta-band { padding: 64px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar">
+  <div class="upper-nav" id="upper-nav">
+    <div class="upper-nav-inner">
+      <a href="#">Krupa Market</a>
+      <a href="media.html">Media Kit</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="https://www.linkedin.com/company/thekrupacorp/jobs/">Careers</a>
+    </div>
+  </div>
+  <div class="main-nav" id="main-nav">
+    <div class="main-nav-inner">
+      <img src="logo-krupa.png" alt="Krupa Corporation" class="logo" />
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#">Our Businesses</a>
+          <div class="dropdown-panel">
+            <h3>B2B Commerce</h3>
+            <a href="EProcurement.html">E Procurement</a>
+            <h3 style="margin-top:18px">Retail</h3>
+            <a href="Retail.html">Krupa Retail</a>
+          </div>
+        </li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="owners.html" class="active">Founder's Message</a></li>
+        <li><a href="blog.html">Blogs</a></li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <button class="mobile-close" id="closeMenu" aria-label="Close menu">✕</button>
+    <ul style="margin-top: 16px;">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="EProcurement.html">E Procurement</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="owners.html">Founder's Message</a></li>
+      <li><a href="media.html">Media Kit</a></li>
+      <li><a href="blog.html">Blogs</a></li>
+      <li><a href="https://www.linkedin.com/company/thekrupacorp/jobs/">Careers</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+
+<main>
+
+  <!-- ── PAGE HERO ── -->
+  <header class="page-hero">
+    <div class="page-hero-content">
+      <div class="page-hero-eyebrow"><span></span> Leadership · Krupa Corporation</div>
+      <h1>A message from our <em>Founder</em></h1>
+    </div>
+  </header>
+
+  <!-- ── BREADCRUMB ── -->
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="index.html">Home</a>
+      <i class="fa fa-chevron-right"></i>
+      <span>Founder's Message</span>
+    </div>
+  </div>
+
+  <!-- ── FOUNDER SECTION ── -->
+  <section class="founder-section">
+    <div class="founder-inner">
+
+      <!-- Portrait -->
+      <div class="founder-portrait reveal-left">
+        <div class="founder-img-wrap">
+          <img src="1-1.png" alt="Pradeep Devarakonda" />
+          <div class="founder-name-overlay">
+            <h2>Pradeep<br>Devarakonda</h2>
+            <p>Founder & Managing Director</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="founder-info reveal-right">
+        <p class="section-eyebrow">Founder's Message</p>
+        <h2 class="section-title">Building something <em>meaningful</em> for India</h2>
+
+        <div class="founder-quote" style="margin-top: 28px;">
+          <p>"Our goal has never been just to build a business — it's to build something that leaves the industry, and the people in it, better than we found them."</p>
+        </div>
+
+        <div class="founder-body">
+          <p>When we started Krupa Corporation, we saw a clear gap in how construction materials were sourced, priced, and delivered across India. Traditional supply chains were opaque, inefficient, and unfair to the businesses that depended on them the most.</p>
+          <p>Our answer was Krupa Market — a platform built on transparency, powered by technology, and grounded in a genuine respect for every retailer, distributor, and builder we serve. The idea was simple: if we can make procurement faster, fairer, and more reliable, we can unlock enormous value for the entire ecosystem.</p>
+          <p>Today, with 500+ retailers supported and 20+ brand partners on board, we're just getting started. Our vision extends beyond commerce — we want to be a company that Andhra Pradesh, and India, is proud of. One that invests in communities, embraces sustainability, and proves that doing business responsibly is not a constraint, but a competitive advantage.</p>
+          <p>To our partners, customers, and team: thank you for believing in what we're building. The best chapters are still ahead.</p>
+        </div>
+
+        <div class="founder-sig">
+          <div class="founder-sig-avatar">
+            <img src="https://rilstaticasset.akamaized.net/sites/default/files/2022-09/m-img.jpg" alt="Pradeep Devarakonda" />
+          </div>
+          <div class="founder-sig-text">
+            <strong>Pradeep Devarakonda</strong>
+            <span>Founder & Managing Director, Krupa Corporation</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── LEADERSHIP TEAM ── -->
+  <section class="team-section">
+    <div class="team-inner">
+      <div class="team-header reveal">
+        <p class="section-eyebrow">Our People</p>
+        <h2 class="section-title">The <em>leadership</em> team</h2>
+        <p class="sub">The people behind Krupa Corporation — united by a shared belief in building India's next great commerce ecosystem.</p>
+      </div>
+      <div class="team-grid">
+
+        <div class="team-card reveal delay-1">
+          <div class="team-card-img">
+            <div class="placeholder"><i class="fa fa-user"></i></div>
+          </div>
+          <div class="team-card-details">
+            <h3>Name Here</h3>
+            <p>Krupa Corporation</p>
+            <span class="role-tag">Non-Executive Director</span>
+          </div>
+        </div>
+
+        <div class="team-card reveal delay-2">
+          <div class="team-card-img">
+            <div class="placeholder"><i class="fa fa-user"></i></div>
+          </div>
+          <div class="team-card-details">
+            <h3>Name Here</h3>
+            <p>Krupa Corporation</p>
+            <span class="role-tag">Non-Executive Director</span>
+          </div>
+        </div>
+
+        <div class="team-card reveal delay-3">
+          <div class="team-card-img">
+            <div class="placeholder"><i class="fa fa-user"></i></div>
+          </div>
+          <div class="team-card-details">
+            <h3>Name Here</h3>
+            <p>Krupa Corporation</p>
+            <span class="role-tag">Non-Executive Director</span>
+          </div>
+        </div>
+
+        <div class="team-card reveal delay-4">
+          <div class="team-card-img">
+            <div class="placeholder"><i class="fa fa-user"></i></div>
+          </div>
+          <div class="team-card-details">
+            <h3>Name Here</h3>
+            <p>Krupa Corporation</p>
+            <span class="role-tag">Non-Executive Director</span>
+          </div>
+        </div>
+
+        <div class="team-card reveal delay-5">
+          <div class="team-card-img">
+            <div class="placeholder"><i class="fa fa-user"></i></div>
+          </div>
+          <div class="team-card-details">
+            <h3>Name Here</h3>
+            <p>Krupa Corporation</p>
+            <span class="role-tag">Non-Executive Director</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VALUES STRIP ── -->
+  <div class="values-strip">
+    <div class="values-strip-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">What drives us</p>
+        <h2 class="section-title">Principles we <em>lead</em> by</h2>
+        <p>Every decision at Krupa Corporation traces back to the same foundation our founder laid on day one.</p>
+      </div>
+      <div class="values-list reveal delay-1">
+        <div class="values-item">
+          <i class="fa fa-handshake"></i>
+          <h4>Trust First</h4>
+          <p>Every partnership is built on transparency and a long-term view — not a single transaction.</p>
+        </div>
+        <div class="values-item">
+          <i class="fa fa-bolt"></i>
+          <h4>Move Fast, Stay Responsible</h4>
+          <p>Speed without accountability is recklessness. We move quickly, but never at the expense of our values.</p>
+        </div>
+        <div class="values-item">
+          <i class="fa fa-leaf"></i>
+          <h4>Sustainability by Design</h4>
+          <p>Environmental responsibility isn't a add-on — it's baked into how we build our supply chain.</p>
+        </div>
+        <div class="values-item">
+          <i class="fa fa-users"></i>
+          <h4>People Over Process</h4>
+          <p>We invest in the people who make this ecosystem work — our team, our partners, our communities.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="cta-band">
+    <h2 class="reveal">Want to be part of the journey?</h2>
+    <p class="reveal delay-1">We're always looking for great people, partners, and ideas that share our belief in building India better.</p>
+    <div class="cta-band-btns reveal delay-2">
+      <a href="https://www.linkedin.com/company/thekrupacorp/jobs/" class="btn-white">View Careers <i class="fa fa-arrow-right" style="font-size:12px"></i></a>
+      <a href="contact.html" class="btn-white-outline">Contact Us</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="logo-krupa.png" alt="Krupa Corporation" />
+      <p>Empowering India's next generation of commerce through transparent, sustainable, and scalable business ecosystems.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/thekrupacorp/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Policies</h4>
+      <ul>
+        <li><a href="termsandconditions.html">Terms & Conditions</a></li>
+        <li><a href="privacy_policy.html">Privacy Policy</a></li>
+        <li><a href="#">Cancellation Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Businesses</h4>
+      <ul>
+        <li><a href="#">B2B Commerce</a></li>
+        <li><a href="#">Retail</a></li>
+        <li><a href="http://krupainfrahub.com">Infra Hub</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="https://www.linkedin.com/company/thekrupacorp/jobs/">Careers</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-newsletter">
+      <h4>Stay Updated</h4>
+      <p>Subscribe to our newsletter for the latest news and updates.</p>
+      <div class="footer-email-form">
+        <input type="email" placeholder="Your email" />
+        <button type="button">Subscribe</button>
+      </div>
+      <div style="margin-top:20px;">
+        <p style="font-size:13px; color:rgba(255,255,255,0.4);">Krupa Corporation HQ<br>4th Floor, Sailok Complex, 6/1,<br>Arundelpet, Guntur, AP 522002</p>
+        <p style="font-size:13px; margin-top:8px;"><a href="mailto:support@krupacorp.com" style="color:var(--blue)">support@krupacorp.com</a></p>
+        <p style="font-size:13px; margin-top:4px;"><a href="tel:+919059577879" style="color:rgba(255,255,255,0.5)">+91 90595 77879</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Krupa Corporation Private Limited. All rights reserved.</span>
+    <div>
+      <a href="termsandconditions.html">Terms</a>
+      <a href="privacy_policy.html">Privacy</a>
+      <a href="#">Security</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const upperNav = document.getElementById('upper-nav');
+  const mainNav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      upperNav.style.transform = 'translateY(-100%)';
+      mainNav.classList.add('sticky');
+    } else {
+      upperNav.style.transform = 'translateY(0)';
+      mainNav.classList.remove('sticky');
+    }
+  });
+
+  // Mobile menu
+  document.getElementById('menuToggle').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.add('open');
+  });
+  document.getElementById('closeMenu').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.remove('open');
+  });
+
+  // Scroll reveal
+  function revealOnScroll() {
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+    });
+  }
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
+</body>
+</html>

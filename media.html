@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media Kit - Krupa Corporation</title>
+    <link rel="icon" type="image/x-icon" href="fav.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      :root {
+        --blue: #0099FF;
+        --blue-dark: #006DD6;
+        --blue-deep: #003A8C;
+        --gold: #AF8C3B;
+        --gold-light: #D4AE5A;
+        --text-dark: #1A1A2E;
+        --text-mid: #4A4A6A;
+        --text-light: #8888A0;
+        --bg-cream: #FDFAF5;
+        --bg-white: #FFFFFF;
+        --border: rgba(0,0,0,0.08);
+        --radius: 14px;
+        --radius-lg: 22px;
+      }
+
+      /* ── MEDIA PAGE HERO ── */
+      .media-hero {
+        position: relative;
+        min-height: 480px;
+        background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 40px;
+        text-align: center;
+        margin-top: 100px;
+      }
+
+      .media-hero-content {
+        max-width: 700px;
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      .media-hero h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        font-weight: 500;
+        color: #fff;
+        line-height: 1.15;
+        margin-bottom: 16px;
+      }
+
+      .media-hero p {
+        font-size: 18px;
+        color: rgba(255,255,255,0.85);
+        line-height: 1.6;
+      }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── MEDIA CONTENT SECTION ── */
+      .media-section {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 80px 40px;
+      }
+
+      .media-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 48px;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .media-header h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem;
+        color: var(--text-dark);
+        margin: 0;
+      }
+
+      .search-box {
+        position: relative;
+      }
+
+      .search-box input {
+        padding: 12px 16px 12px 40px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        width: 280px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background: var(--bg-white);
+      }
+
+      .search-box input::placeholder {
+        color: var(--text-light);
+      }
+
+      .search-box input:focus {
+        outline: none;
+        border-color: var(--blue);
+        box-shadow: 0 0 0 3px rgba(0, 153, 255, 0.1);
+      }
+
+      .search-box i {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-light);
+      }
+
+      /* ── MEDIA GRID ── */
+      .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 32px;
+      }
+
+      .media-card {
+        background: var(--bg-white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .media-card:hover {
+        border-color: var(--blue);
+        box-shadow: 0 12px 40px rgba(0, 153, 255, 0.15);
+        transform: translateY(-8px);
+      }
+
+      .media-card-image {
+        width: 100%;
+        height: 220px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e9ecf1 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .media-card-image img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.4s ease;
+      }
+
+      .media-card:hover .media-card-image img {
+        transform: scale(1.08);
+      }
+
+      .media-card-content {
+        padding: 24px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .media-card h3 {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin: 0 0 12px 0;
+        line-height: 1.4;
+      }
+
+      .media-card-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 18px;
+        background: var(--blue);
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: auto;
+        width: fit-content;
+      }
+
+      .media-card-button:hover {
+        background: var(--blue-dark);
+        transform: translateX(4px);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        .media-hero {
+          min-height: 340px;
+          padding: 40px 20px;
+          margin-top: 100px;
+        }
+
+        .media-hero h1 {
+          font-size: 2rem;
+        }
+
+        .media-hero p {
+          font-size: 16px;
+        }
+
+        .media-section {
+          padding: 40px 20px;
+        }
+
+        .media-header {
+          justify-content: center;
+          text-align: center;
+        }
+
+        .media-header h2 {
+          font-size: 1.6rem;
+          width: 100%;
+        }
+
+        .search-box input {
+          width: 100%;
+          max-width: 280px;
+        }
+
+        .media-grid {
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          gap: 20px;
+        }
+
+        .media-card-image {
+          height: 180px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .media-hero {
+          min-height: 280px;
+          padding: 30px 16px;
+          margin-top: 100px;
+        }
+
+        .media-hero h1 {
+          font-size: 1.5rem;
+        }
+
+        .media-hero p {
+          font-size: 14px;
+        }
+
+        .media-section {
+          padding: 30px 16px;
+        }
+
+        .media-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .media-card {
+          flex-direction: row;
+          gap: 16px;
+        }
+
+        .media-card-image {
+          width: 140px;
+          height: 140px;
+          flex-shrink: 0;
+        }
+
+        .media-card-content {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Upper Navigation Bar -->
+    <div class="upper-nav">
+      <div class="upper-nav-inner">
+        <a href="#">krupa Market</a>
+        <a href="media.html">Media Kit</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="https://www.linkedin.com/company/thekrupacorp/jobs/">Careers</a>
+      </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <nav class="main-nav">
+      <div class="main-nav-inner">
+        <img src="logo-krupa.png" alt="Krupa Corporation" class="logo" />
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">Our Businesses</a>
+            <div class="dropdown-panel">
+              <h3>B2B Commerce</h3>
+              <a href="EProcurement.html">E Procurement</a>
+            </div>
+          </li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="owners.html">Founder's Message</a></li>
+          <li><a href="blog.html">Blogs</a></li>
+        </ul>
+        <button class="menu-toggle">☰</button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+      <button class="mobile-close">✕</button>
+      <div class="mobile-menu-inner">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="EProcurement.html">E Procurement</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="owners.html">Founder's Message</a></li>
+          <li><a href="media.html">Media Kit</a></li>
+          <li><a href="blog.html">Blogs</a></li>
+          <li><a href="https://www.linkedin.com/company/thekrupacorp/jobs/">Careers</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="media-hero">
+      <div class="media-hero-content">
+        <h1>Media Kit</h1>
+        <p>Explore our brand assets, logos, and marketing materials</p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <section class="media-section">
+        <div class="media-header">
+          <h2>Our Resources</h2>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-input" placeholder="Search media..." />
+          </div>
+        </div>
+
+        <div class="media-grid" id="media-content">
+          <!-- Content will be dynamically inserted here -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="foot-head">
+        <div class="footer-subscribe">
+          <p>Subscribe to our news alerts</p>
+          <form>
+            <input type="email" placeholder="Email Id" />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-container">
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Policies</h4>
+            <ul>
+              <li><a href="termsandconditions.html">Terms & Conditions</a></li>
+              <li><a href="privacy_policy.html">Privacy Policy</a></li>
+              <li><a href="#">Cancellation Policy</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Businesses</h4>
+            <ul>
+              <li><a href="#">B2B commerce</a></li>
+              <li><a href="#">Retail</a></li>
+              <li><a href="http://krupainfrahub.com">Infra Hub</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="https://www.linkedin.com/company/thekrupacorp/jobs/">Careers</a></li>
+              <li><a href="contact.html">Contact us</a></li>
+              <li><a href="http://krupainfrahub.com">Infrahub</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Contact</h4>
+            <ul>
+              <li><a href="#">Krupa Corporation HQ 4th Floor, Sailok Complex, 6/1, Arundelpet, Guntur, Andhra Pradesh 522002</a></li>
+              <li><a href="#">+919059577879</a></li>
+              <li><a href="mailto:support@krupacorp.com">Support@krupacorp.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2024 Krupa Corporation Private Limited. All rights reserved.</p>
+        <div class="policies">
+          <a href="termsandconditions.html">Terms & Conditions</a>
+          <a href="privacy_policy.html">Privacy Policy</a>
+          <a href="#">Report Security Issue</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // Mobile menu toggle
+      const menuToggle = document.querySelector(".menu-toggle");
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const mobileClose = document.querySelector(".mobile-close");
+
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.add("open");
+      });
+
+      mobileClose.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+      });
+
+      // Media content
+      const mediaKitData = [
+        { name: "Pradeep Deverakonda", logo: "1-1.png", link: "logos.html" },
+        { name: "Krupa Corporation", logo: "2-2.png", link: "logo1.html" },
+        { name: "Krupa Retail", logo: "6-6.png", link: "logo2.html" },
+      ];
+
+      const searchInput = document.getElementById("search-input");
+      const mediaContent = document.getElementById("media-content");
+
+      function renderMedia(searchQuery = "") {
+        mediaContent.innerHTML = "";
+        const filtered = mediaKitData.filter((item) =>
+          item.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        filtered.forEach((item) => {
+          const card = document.createElement("div");
+          card.className = "media-card";
+          card.innerHTML = `
+            <div class="media-card-image">
+              <img src="${item.logo}" alt="${item.name}" />
+            </div>
+            <div class="media-card-content">
+              <h3>${item.name}</h3>
+              <a href="${item.link}" class="media-card-button">
+                <span>View</span>
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          `;
+          mediaContent.appendChild(card);
+        });
+      }
+
+      searchInput.addEventListener("input", () => {
+        renderMedia(searchInput.value);
+      });
+
+      // Initial render
+      renderMedia();
+
+      // Sticky navigation
+      const mainNav = document.querySelector(".main-nav");
+      const upperNav = document.querySelector(".upper-nav");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          upperNav.style.transform = "translateY(-100%)";
+          mainNav.classList.add("sticky");
+        } else {
+          upperNav.style.transform = "translateY(0)";
+          mainNav.classList.remove("sticky");
+        }
+      });
+    </script>
+  </body>
+</html>

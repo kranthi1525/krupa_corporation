@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B2B Commerce — Krupa Corporation</title>
+  <link rel="icon" type="image/x-icon" href="fav.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #0099FF;
+      --blue-dark: #006DD6;
+      --blue-deep: #003A8C;
+      --gold: #AF8C3B;
+      --gold-light: #D4AE5A;
+      --text-dark: #1A1A2E;
+      --text-mid: #4A4A6A;
+      --text-light: #8888A0;
+      --bg-cream: #FDFAF5;
+      --bg-white: #FFFFFF;
+      --border: rgba(0,0,0,0.08);
+      --radius: 14px;
+      --radius-lg: 22px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-white);
+      overflow-x: hidden;
+    }
+
+    /* ── UPPER NAV ── */
+    .upper-nav {
+      background: var(--gold);
+      transition: transform 0.35s ease;
+    }
+    .upper-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 9px 28px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 28px;
+    }
+    .upper-nav a {
+      color: rgba(255,255,255,0.92);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+    .upper-nav a:hover { color: #fff; }
+
+    /* ── MAIN NAV ── */
+    .main-nav {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.35s ease;
+      position: relative;
+      z-index: 100;
+    }
+    .main-nav.sticky {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .main-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { width: 160px; height: auto; }
+    .nav-links { display: flex; list-style: none; gap: 36px; align-items: center; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-mid);
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 100%;
+      height: 2px;
+      background: var(--blue);
+      transition: right 0.25s ease;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { right: 0; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+
+    /* Dropdown */
+    .dropdown { position: relative; }
+    .dropdown-panel {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      min-width: 320px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+      z-index: 200;
+    }
+    .dropdown:hover .dropdown-panel { display: block; }
+    .dropdown-panel h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .dropdown-panel a {
+      display: block;
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+    }
+    .dropdown-panel a:last-child { border-bottom: none; }
+    .dropdown-panel a:hover { color: var(--blue); }
+    .dropdown-panel a::after { display: none; }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--blue-deep);
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      overflow-y: auto;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu-inner { padding: 28px 28px 40px; }
+    .mobile-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      float: right;
+      margin-bottom: 48px;
+    }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .mobile-menu a {
+      display: block;
+      padding: 16px 0;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      position: relative;
+      height: 52vh;
+      min-height: 380px;
+      background-image: url(B2B\ commercw.jpg);
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 64px;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,15,40,0.2) 0%,
+        rgba(0,15,40,0.55) 60%,
+        rgba(0,15,40,0.78) 100%
+      );
+    }
+    .page-hero-content {
+      position: relative;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .page-hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(8px);
+      border-radius: 50px;
+      padding: 6px 16px;
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .page-hero-eyebrow span { width: 6px; height: 6px; background: var(--gold-light); border-radius: 50%; }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.12;
+      max-width: 640px;
+      margin-bottom: 28px;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+    .page-hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 50px;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      background: var(--bg-cream);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 40px;
+    }
+    .breadcrumb-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    .breadcrumb-inner a { color: var(--blue); text-decoration: none; }
+    .breadcrumb-inner a:hover { text-decoration: underline; }
+    .breadcrumb-inner i { font-size: 10px; }
+
+    /* ── SECTION SHARED ── */
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 500;
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+    .section-title em { font-style: italic; color: var(--blue); }
+
+    /* ── INTRO SPLIT ── */
+    .intro-section {
+      padding: 100px 40px;
+      background: var(--bg-white);
+    }
+    .intro-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .intro-text .section-title { margin-bottom: 24px; }
+    .intro-text p {
+      font-size: 15.5px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .intro-text p:first-of-type { font-size: 17px; color: var(--text-dark); }
+    .intro-img-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+    }
+    .intro-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .intro-img-wrap:hover img { transform: scale(1.04); }
+    .intro-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,153,255,0.15), transparent);
+      pointer-events: none;
+    }
+
+    /* ── INFRAHUB FEATURE ── */
+    .infrahub-section {
+      padding: 100px 40px;
+      background: var(--bg-cream);
+    }
+    .infrahub-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .infrahub-img-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      position: relative;
+    }
+    .infrahub-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .infrahub-img-wrap:hover img { transform: scale(1.04); }
+    .infrahub-badge {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      background: var(--blue);
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      color: #fff;
+      text-align: center;
+    }
+    .infrahub-badge .badge-label {
+      font-size: 11px;
+      opacity: 0.8;
+      letter-spacing: 0.5px;
+    }
+    .infrahub-badge .badge-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+    .infrahub-text .section-title { margin-bottom: 24px; }
+    .infrahub-text p {
+      font-size: 15.5px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    /* ── ADVANTAGES (dark) ── */
+    .advantages-section {
+      background: var(--text-dark);
+      padding: 100px 40px;
+    }
+    .advantages-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .advantages-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 64px;
+    }
+    .advantages-section .section-eyebrow { color: var(--gold-light); }
+    .advantages-section .section-title { color: #fff; }
+    .advantages-header p {
+      font-size: 15.5px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+    }
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .adv-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 40px 32px;
+      transition: background 0.3s;
+    }
+    .adv-card:hover { background: rgba(0,153,255,0.08); }
+    .adv-icon {
+      width: 52px; height: 52px;
+      background: rgba(0,153,255,0.12);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+    .adv-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .adv-card p {
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+
+    /* ── TAILORED SPLIT ── */
+    .tailored-section {
+      padding: 100px 40px;
+      background: var(--bg-white);
+    }
+    .tailored-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .tailored-text .section-title { margin-bottom: 24px; }
+    .tailored-text p {
+      font-size: 15.5px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .tailored-img-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .tailored-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .tailored-img-wrap:hover img { transform: scale(1.04); }
+
+    /* ── CONCLUSION BAND ── */
+    .conclusion-section {
+      background: var(--bg-cream);
+      padding: 100px 40px;
+    }
+    .conclusion-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .conclusion-inner .section-title { margin-bottom: 28px; }
+    .conclusion-inner p {
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--blue);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .cta-band p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .cta-band-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: #fff;
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-white:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); }
+    .btn-white-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-white-outline:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: #0A0F1E; color: rgba(255,255,255,0.7); }
+    .footer-top {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 64px 40px 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1.4fr;
+      gap: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand img { width: 140px; filter: brightness(0) invert(1); opacity: 0.85; margin-bottom: 18px; }
+    .footer-brand p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.45); max-width: 240px; margin-bottom: 20px; }
+    .footer-socials { display: flex; gap: 14px; }
+    .footer-socials a {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+      color: rgba(255,255,255,0.6);
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .footer-socials a:hover { background: var(--blue); color: #fff; }
+    .footer-col h4 {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-newsletter p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 14px; line-height: 1.6; }
+    .footer-email-form {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .footer-email-form input {
+      flex: 1;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    .footer-email-form input::placeholder { color: rgba(255,255,255,0.3); }
+    .footer-email-form button {
+      padding: 12px 18px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .footer-email-form button:hover { background: var(--blue-dark); }
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; margin-left: 20px; }
+    .footer-bottom a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal-left.active { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal-right.active { opacity: 1; transform: translateX(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .nav-links, .upper-nav { display: none; }
+      .menu-toggle { display: block; }
+      .mobile-menu { display: block; }
+      .intro-inner, .infrahub-inner, .tailored-inner { grid-template-columns: 1fr; gap: 40px; }
+      .advantages-header { grid-template-columns: 1fr; gap: 24px; }
+      .advantages-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .intro-section, .infrahub-section, .advantages-section,
+      .tailored-section, .conclusion-section { padding: 72px 24px; }
+      .page-hero-content { padding: 0 24px; }
+      .breadcrumb { padding: 14px 24px; }
+      .advantages-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; padding: 48px 24px 32px; }
+      .footer-bottom { padding: 20px 24px; flex-direction: column; text-align: center; }
+      .footer-bottom a { margin: 0 8px; }
+      .cta-band { padding: 64px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar">
+  <div class="upper-nav" id="upper-nav">
+    <div class="upper-nav-inner">
+      <a href="#">Krupa Market</a>
+      <a href="media.html">Media Kit</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="https://www.linkedin.com/company/thekrupacorp/jobs/">Careers</a>
+    </div>
+  </div>
+  <div class="main-nav" id="main-nav">
+    <div class="main-nav-inner">
+      <img src="logo-krupa.png" alt="Krupa Corporation" class="logo" />
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="active">Our Businesses</a>
+          <div class="dropdown-panel">
+            <h3>B2B Commerce</h3>
+            <a href="EProcurement.html">E Procurement</a>
+            <h3 style="margin-top:16px;">Strategic Ventures</h3>
+            <a href="Retail.html">Retail</a>
+          </div>
+        </li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="owners.html">Founder's Message</a></li>
+        <li><a href="blog.html">Blogs</a></li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <button class="mobile-close" id="closeMenu" aria-label="Close menu">✕</button>
+    <ul style="margin-top: 16px;">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="EProcurement.html">E Procurement</a></li>
+      <li><a href="Retail.html">Retail</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="owners.html">Founder's Message</a></li>
+      <li><a href="media.html">Media Kit</a></li>
+      <li><a href="blog.html">Blogs</a></li>
+      <li><a href="https://www.linkedin.com/company/thekrupacorp/jobs/">Careers</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+
+<main>
+
+  <!-- ── PAGE HERO ── -->
+  <header class="page-hero">
+    <div class="page-hero-content">
+      <div class="page-hero-eyebrow"><span></span> Our Businesses · B2B Commerce</div>
+      <h1>Revolutionising the <em>Building Materials</em> Supply Chain</h1>
+      <div class="page-hero-ctas">
+        <a href="http://krupainfrahub.com" class="btn-primary">Visit Krupa Infrahub <i class="fa fa-arrow-right" style="font-size:12px"></i></a>
+        <a href="contact.html" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── BREADCRUMB ── -->
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="index.html">Home</a>
+      <i class="fa fa-chevron-right"></i>
+      <a href="#">Our Businesses</a>
+      <i class="fa fa-chevron-right"></i>
+      <span>B2B Commerce</span>
+    </div>
+  </div>
+
+  <!-- ── INTRO ── -->
+  <section class="intro-section">
+    <div class="intro-inner">
+      <div class="intro-text reveal-left">
+        <p class="section-eyebrow">The Opportunity</p>
+        <h2 class="section-title">The future of <em>B2B Commerce</em> is digital</h2>
+        <p>The B2B commerce landscape is undergoing a significant transformation as industries embrace digitalisation, automation, and data-driven solutions. Traditional procurement methods are becoming increasingly inefficient — and businesses are shifting towards smarter, integrated platforms.</p>
+        <p>This evolution is reshaping sectors like construction, where procurement complexity, volatile pricing, and supply chain challenges often pose significant hurdles. Krupa Corporation recognised this shift early and built a platform purpose-designed for India's construction ecosystem.</p>
+        <p>By harnessing the power of data and digital tools, our platform enables businesses to optimise their purchasing decisions, reduce costs, and improve operational efficiency from end to end.</p>
+      </div>
+      <div class="intro-img-wrap reveal-right">
+        <img src="B2B commercw.jpg" alt="B2B Commerce — construction materials" />
+        <div class="intro-img-overlay"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INFRAHUB FEATURE ── -->
+  <section class="infrahub-section">
+    <div class="infrahub-inner">
+      <div class="infrahub-img-wrap reveal-left">
+        <img src="WhatsApp Image 2024-10-17 at 19.29.01_7a5044a3.jpg" alt="Krupa Infrahub platform" />
+        <div class="infrahub-badge">
+          <div class="badge-label">Direct to</div>
+          <div class="badge-val">Manufacturer</div>
+        </div>
+      </div>
+      <div class="infrahub-text reveal-right">
+        <p class="section-eyebrow">Our Platform</p>
+        <h2 class="section-title">Krupa <em>Infrahub</em></h2>
+        <p>Krupa Corporation developed Krupa Infrahub to address the specific procurement needs of the construction industry. The platform bridges the gap between buyers and suppliers, empowering construction businesses to purchase materials like steel, cement, and aggregates directly from manufacturers.</p>
+        <p>By eliminating intermediaries, the platform ensures businesses get the best value for their money while maintaining a high level of quality and reliability — with full transparency at every stage of the supply chain.</p>
+        <a href="http://krupainfrahub.com" class="btn-primary" style="margin-top:8px;">Explore Infrahub <i class="fa fa-arrow-right" style="font-size:12px"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ADVANTAGES ── -->
+  <section class="advantages-section">
+    <div class="advantages-inner">
+      <div class="advantages-header">
+        <div class="reveal">
+          <p class="section-eyebrow">Platform Advantages</p>
+          <h2 class="section-title">Tailored solutions for <em>construction businesses</em></h2>
+        </div>
+        <p class="reveal delay-1">Krupa Infrahub is built with the future of B2B commerce in mind — providing real-time intelligence, scale economics, and automation that legacy procurement simply cannot match.</p>
+      </div>
+      <div class="advantages-grid">
+        <div class="adv-card reveal delay-1">
+          <div class="adv-icon"><i class="fa fa-chart-bar"></i></div>
+          <h3>Real-Time Market Data</h3>
+          <p>Stay updated with real-time pricing trends for building materials, allowing businesses to make informed purchasing decisions at the right moment.</p>
+        </div>
+        <div class="adv-card reveal delay-2">
+          <div class="adv-icon"><i class="fa fa-boxes"></i></div>
+          <h3>Bulk Procurement Benefits</h3>
+          <p>Leverage economies of scale and negotiate better deals on bulk purchases of essential materials — cement, steel, electricals, and more.</p>
+        </div>
+        <div class="adv-card reveal delay-3">
+          <div class="adv-icon"><i class="fa fa-brain"></i></div>
+          <h3>Automation & Analytics</h3>
+          <p>Valuable insights to track purchasing patterns, predict future needs, and streamline inventory management across your entire project portfolio.</p>
+        </div>
+        <div class="adv-card reveal delay-2">
+          <div class="adv-icon"><i class="fa fa-leaf"></i></div>
+          <h3>Eco-Friendly Options</h3>
+          <p>Partner with green suppliers and choose eco-conscious materials without compromising on quality or cost, supporting sustainable construction practices.</p>
+        </div>
+        <div class="adv-card reveal delay-3">
+          <div class="adv-icon"><i class="fa fa-credit-card"></i></div>
+          <h3>Integrated Financing</h3>
+          <p>Financial services with flexible payment options and financing solutions to ease procurement during project peaks — keeping your work moving.</p>
+        </div>
+        <div class="adv-card reveal delay-4">
+          <div class="adv-icon"><i class="fa fa-expand-arrows-alt"></i></div>
+          <h3>Scalable Supplier Base</h3>
+          <p>As the platform scales, Krupa Infrahub expands product categories and suppliers — ensuring access to a broader range of materials over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TAILORED DEEP-DIVE ── -->
+  <section class="tailored-section">
+    <div class="tailored-inner">
+      <div class="tailored-text reveal-left">
+        <p class="section-eyebrow">The Bigger Picture</p>
+        <h2 class="section-title">Sustainability meets <em>scalability</em></h2>
+        <p>Krupa Infrahub aligns with the growing demand for sustainable practices in the construction industry. By offering eco-friendly materials and partnering with green suppliers, the platform allows businesses to make environmentally conscious decisions without compromising on quality or cost.</p>
+        <p>As the platform scales, Krupa Corporation envisions expanding its product categories and supplier base, ensuring that businesses have access to a broader range of materials. Krupa Infrahub also plans to integrate financial services offering better payment options, including financing solutions to ease procurement during project peaks.</p>
+        <p>The ability to manage the entire procurement process from a single, integrated platform is what makes Krupa Infrahub a game-changer for the construction industry.</p>
+      </div>
+      <div class="tailored-img-wrap reveal-right">
+        <img src="b2b-2.jpg" alt="Construction site procurement" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONCLUSION ── -->
+  <section class="conclusion-section">
+    <div class="conclusion-inner reveal">
+      <p class="section-eyebrow">Conclusion</p>
+      <h2 class="section-title">The future of B2B commerce <em>is already here</em></h2>
+      <p style="margin-top:24px;">As B2B commerce continues to shift toward a fully digital and automated environment, companies like Krupa Corporation are at the forefront of this transformation. Krupa Infrahub's smart procurement solutions not only streamline the purchasing of construction materials — they set a new standard for how businesses leverage technology to drive efficiency, cost savings, and sustainability.</p>
+      <p>This forward-thinking approach positions Krupa Corporation as a vital player in the future of B2B commerce, particularly within India's construction sector.</p>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <div class="cta-band">
+    <h2 class="reveal">Ready to transform your procurement?</h2>
+    <p class="reveal delay-1">Join hundreds of businesses already using Krupa Infrahub to buy smarter, move faster, and build better.</p>
+    <div class="cta-band-btns reveal delay-2">
+      <a href="http://krupainfrahub.com" class="btn-white">Visit Infrahub <i class="fa fa-arrow-right" style="font-size:12px"></i></a>
+      <a href="contact.html" class="btn-white-outline">Contact Us</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="logo-krupa.png" alt="Krupa Corporation" />
+      <p>Empowering India's next generation of commerce through transparent, sustainable, and scalable business ecosystems.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/thekrupacorp/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Policies</h4>
+      <ul>
+        <li><a href="termsandconditions.html">Terms & Conditions</a></li>
+        <li><a href="privacy_policy.html">Privacy Policy</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Refund Policy</a></li>
+        <li><a href="#">Cancellation Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Businesses</h4>
+      <ul>
+        <li><a href="#">B2B Commerce</a></li>
+        <li><a href="#">Retail</a></li>
+        <li><a href="http://krupainfrahub.com">Infra Hub</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="https://www.linkedin.com/company/thekrupacorp/jobs/">Careers</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="https://yumzy.shop/">Yumzy.Shop</a></li>
+        <li><a href="https://avinyamall.com/">Avinyamall.com</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-newsletter">
+      <h4>Stay Updated</h4>
+      <p>Subscribe to our newsletter for the latest news and updates.</p>
+      <div class="footer-email-form">
+        <input type="email" placeholder="Your email" />
+        <button type="button">Subscribe</button>
+      </div>
+      <div style="margin-top:20px;">
+        <p style="font-size:13px; color:rgba(255,255,255,0.4);">Krupa Corporation HQ<br>4th Floor, Sailok Complex, 6/1,<br>Arundelpet, Guntur, AP 522002</p>
+        <p style="font-size:13px; margin-top:8px;"><a href="mailto:support@krupacorp.com" style="color:var(--blue)">support@krupacorp.com</a></p>
+        <p style="font-size:13px; margin-top:4px;"><a href="tel:+919059577879" style="color:rgba(255,255,255,0.5)">+91 90595 77879</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Krupa Corporation Private Limited. All rights reserved.</span>
+    <div>
+      <a href="termsandconditions.html">Terms</a>
+      <a href="privacy_policy.html">Privacy</a>
+      <a href="#">Security</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const upperNav = document.getElementById('upper-nav');
+  const mainNav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      upperNav.style.transform = 'translateY(-100%)';
+      mainNav.classList.add('sticky');
+    } else {
+      upperNav.style.transform = 'translateY(0)';
+      mainNav.classList.remove('sticky');
+    }
+  });
+
+  // Mobile menu
+  document.getElementById('menuToggle').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.add('open');
+  });
+  document.getElementById('closeMenu').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.remove('open');
+  });
+
+  // Scroll reveal
+  function revealOnScroll() {
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      const top = el.getBoundingClientRect().top;
+      if (top < window.innerHeight - 100) el.classList.add('active');
+    });
+  }
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
+</body>
+</html>
